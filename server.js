@@ -5,8 +5,12 @@ connectDB()
 const express = require('express')
 const router = require('./routes/ideas')
 const port = process.env.PORT
+const path = require('path')
 
 const app = express()
+
+//setting up direction to static folder
+app.use(express.static(path.join(__dirname,'public')))
 
 //middleware to parse body data
 app.use(express.json())
