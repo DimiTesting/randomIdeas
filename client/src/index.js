@@ -6,7 +6,4 @@ import IdeaList from './components/IdeaList';
 
 const modal = new Modal()
 const ideaForm = new IdeaForm()
-const ideaList = new IdeaList()
-
 ideaForm.render()
-ideaList.render()

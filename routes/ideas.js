@@ -8,6 +8,7 @@ router.get('/', async (req,res)=> {
         const ideas = await Idea.find({})
         res.json({success: true, data: ideas})
     } catch (error) {
+        console.log(error)
         res.status(500).json({success: true, error: 'Resourse not found'})
     }
 })

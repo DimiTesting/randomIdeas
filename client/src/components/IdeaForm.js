@@ -1,22 +1,34 @@
+import ideaAPI from "../../services/ideaAPI"
+import IdeaList from "./IdeaList"
+
+const ideas = new ideaAPI
+
 class IdeaForm {
     constructor() {
         this._formModal = document.getElementById('form-modal')
+        this._ideaList = new IdeaList
     }
 
-    handleSubmit () {
-        const idea = {
-            username: this._form.elements.username.value,
-            text: this._form.elements.text.value, 
-            tag: this._form.elements.tag.value
+    async handleSubmit () {
+        try {
+            const idea = {
+                username: this._form.elements.username.value,
+                text: this._form.elements.text.value, 
+                tag: this._form.elements.tag.value
+            }
+            
+            const newIdea = await ideas.createIdea(idea)
+            this._ideaList.addIdeaToList(newIdea.data.data)
+    
+            this._form.elements.username.value = ''
+            this._form.elements.text.value = ''
+            this._form.elements.tag.value = ''
+    
+            document.dispatchEvent(new Event('closeModal'))
+            
+        } catch (error) {
+            console.log(error)
         }
-        console.log(idea)
-
-        this._form.elements.username.value = ''
-        this._form.elements.text.value = ''
-        this._form.elements.tag.value = ''
-
-        document.dispatchEvent(new Event('closeModal'))
-
     }
 
     eventListeners (e) {
