@@ -16,13 +16,22 @@ class IdeaForm {
                 text: this._form.elements.text.value, 
                 tag: this._form.elements.tag.value
             }
-            
+
+            if(!this._form.elements.username.value||!this._form.elements.text.value||!this._form.elements.tag.value) {
+                alert('Please fill the form')
+                return
+            }
+
+            localStorage.setItem('username', this._form.elements.username.value)
+                        
             const newIdea = await ideas.createIdea(idea)
             this._ideaList.addIdeaToList(newIdea.data.data)
     
             this._form.elements.username.value = ''
             this._form.elements.text.value = ''
             this._form.elements.tag.value = ''
+
+            this.render()
     
             document.dispatchEvent(new Event('closeModal'))
             
@@ -41,7 +50,7 @@ class IdeaForm {
                 <form id="idea-form">
                     <div class="form-control">
                         <label for="idea-text">Enter a Username</label>
-                        <input type="text" name="username" id="username" />
+                        <input type="text" name="username" id="username" value=${localStorage.getItem('username') ? localStorage.getItem('username') : ""}>
                     </div>
                     <div class="form-control">
                         <label for="idea-text">What's Your Idea?</label>

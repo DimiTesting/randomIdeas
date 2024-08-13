@@ -12,6 +12,12 @@ class ideaAPI{
     createIdea(data) {
         return axios.post(this._URL, data)
     }
+
+    deleteIdea(id, username) {
+        return axios.delete(`${this._URL}/${id}`, {
+            data: username,
+          })
+    }
 }
 
 export default ideaAPI
